@@ -53,11 +53,18 @@ npm install \
 
 * gh-page, updated by [grunt-build-gh-pages](https://github.com/pajtai/grunt-build-gh-pages)
 
+
 ### Commands
 
 * `grunt` - jshint project and start local server, looking /app directory
 
   `http://localhost:9001`
+
+* `grunt build` - jshint, clean /dist, copy /app files to /dist, commit and send files to gh-pages branch
+
+  **warning:** first commit all files before run this command
+
+  **obs.:** runs only on unix/linux systems 
 
 
 ### Cloned from GitHub
