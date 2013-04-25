@@ -18,12 +18,12 @@ var Backbone = this.Backbone;
 // Generate four random hex digits.
 function S4() {
    return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-};
+}
 
 // Generate a pseudo-GUID by concatenating random hexadecimal.
 function guid() {
    return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
-};
+}
 
 // Our Store is represented by a single JS object in *localStorage*. Create it
 // with a meaningful name, like the name you'd give a table.
@@ -44,7 +44,7 @@ _.extend(Backbone.LocalStorage.prototype, {
   //@jandersonfc update open_items in list (functionally the backend, mock it here)
   updateList: function(model){
     var list = JSON.parse(this.localStorage().getItem("list-"+model.get('list').id));
-    if (model.get('done') == false){
+    if (model.get('done') === false){
       list.open_items = list.open_items+1;
     } else {
       list.open_items = list.open_items-1;
@@ -75,7 +75,7 @@ _.extend(Backbone.LocalStorage.prototype, {
 
     //@jandersonfc simulate change id after invoke create
     if (!model.id) {
-      model.id = new_model.id
+      model.id = new_model.id;
       model.set(model.idAttribute, new_model.id);
     }
     
@@ -85,8 +85,7 @@ _.extend(Backbone.LocalStorage.prototype, {
     }
 
     //@jandersonfc dispatch sync in case of success
-    model.trigger('sync', model)
-    //
+    model.trigger('sync', model);
 
     return model.toJSON();
   },
@@ -106,8 +105,7 @@ _.extend(Backbone.LocalStorage.prototype, {
     if (!_.include(this.records, model.id.toString())) this.records.push(model.id.toString()); this.save();
     
     //@jandersonfc dispatch sync in case of success
-    model.trigger('sync', model)
-    //
+    model.trigger('sync', model);
 
     return model.toJSON();
   },
@@ -149,8 +147,7 @@ _.extend(Backbone.LocalStorage.prototype, {
     this.save();
     
     //@jandersonfc dispatch sync in case of success
-    model.trigger('sync', model)
-    //
+    model.trigger('sync', model);
 
     return model;
   },
@@ -179,7 +176,7 @@ Backbone.LocalStorage.sync = window.Store.sync = Backbone.localSync = function(m
 
   switch (method) {
     case "read":
-        resp = model.id != undefined ? store.find(model) : store.findAll(options);
+        resp = model.id !== undefined ? store.find(model) : store.findAll(options);
         if(resp && resp.length >= 1 && (model instanceof Backbone.Model) ){
             resp = resp[0];
         }
