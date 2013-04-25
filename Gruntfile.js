@@ -50,7 +50,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('default', ['jshint', 'connect']);
 
-  grunt.registerTask('build', ['jshint', 'clean', 'copy']);
+  grunt.registerTask('build', ['jshint', 'clean', 'copy', 'build_gh_pages:gh_pages']);
 
 
 };
