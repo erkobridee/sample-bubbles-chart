@@ -2,6 +2,12 @@
 
 generate one bubbles chart (highcharts) with the words parsed in a text
 
+
+## Demo
+
+View the app [Duplication of words](http://erkobridee.github.io/sample-bubbles-chart/)
+
+
 ## Project Organization
 
 By Erko Bridee
