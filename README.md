@@ -16,7 +16,7 @@ Move codes to `/app` directory
 
 * [Grunt.js](http://gruntjs.com/)
 
-	`sudo npm install -g grunt-cli` 
+  `sudo npm install -g grunt-cli` 
 
 
 **Created:** 
@@ -37,8 +37,12 @@ touch Gruntfile.js
 npm install \
   matchdep \
   grunt \
+  grunt-contrib-clean \ 
+  grunt-contrib-copy \
   grunt-contrib-jshint \
   grunt-contrib-connect \
+  grunt-build-gh-pages \
+  grunt-shell \
   --save-dev  
 ```  
 
@@ -47,7 +51,7 @@ npm install \
 
 * Grunt.js to project
 
-* gh-page, updated by grunt-build-gh-pages
+* gh-page, updated by [grunt-build-gh-pages](https://github.com/pajtai/grunt-build-gh-pages)
 
 ### Commands
 

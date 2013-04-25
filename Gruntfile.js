@@ -24,13 +24,33 @@ module.exports = function(grunt) {
           keepalive: true
         }
       }
-    }
+    },
+
+    clean: {
+      build: ['dist/']
+    },
+
+    copy: {
+      build: {
+        files: [
+          {expand: true, cwd: 'app/', src: ['**'], dest: 'dist/'}
+        ]
+      }
+    },
+
+    build_gh_pages: {
+      gh_pages: {
+        
+      }
+    }    
 
   };
 
   grunt.initConfig(gruntConfig);
 
   grunt.registerTask('default', ['jshint', 'connect']);
+
+  grunt.registerTask('build', ['jshint', 'clean', 'copy']);
 
 
 };
