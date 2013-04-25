@@ -33,6 +33,7 @@ module.exports = function(grunt) {
     copy: {
       build: {
         files: [
+          {src: ['.gitignore'], dest: 'dist/', filter: 'isFile'},
           {expand: true, cwd: 'app/', src: ['**'], dest: 'dist/'}
         ]
       }
