@@ -1,4 +1,4 @@
-module.exports = function(grunt) {
+module.exports = function(grunt) {  
   'use strict';
 
   // load all grunt tasks -> see package.json :: devDependencies
@@ -14,12 +14,23 @@ module.exports = function(grunt) {
         'Gruntfile.js',
         'app/js/**/*.js'
       ]
+    },
+
+    connect: {
+      server: {
+        options: {
+          port: 9001,
+          base: 'app',
+          keepalive: true
+        }
+      }
     }
 
   };
 
   grunt.initConfig(gruntConfig);
 
-  
-  grunt.registerTask('default', ['jshint']);
+  grunt.registerTask('default', ['jshint', 'connect']);
+
+
 };
