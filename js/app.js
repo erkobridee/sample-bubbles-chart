@@ -36,7 +36,8 @@ window.IndexView = Backbone.View.extend({
     events:{
         "blur .key_words": "save_keyword",
         "blur .ignore_words": "save_ignoreword",
-        "submit #form": "analise_text"
+        "submit #form": "analise_text",
+        "change #search": "filter_graphics"
     },
 
     save_keyword: function(){
@@ -76,7 +77,7 @@ window.IndexView = Backbone.View.extend({
                 }
 
                 if (!has_word){
-                    var obj = {word: word, repeat: 1, duplicate: 1, index: index};
+                    var obj = {word: word, repeat: 1, duplicate: 1, index: index, visible: true};
                     this.words.push(obj);
                 }
             }
@@ -121,24 +122,56 @@ window.IndexView = Backbone.View.extend({
             this.separate_words(text_in_array[i].toLowerCase(), i);
         }
 
+        this.words.sort(function(a,b){
+            if(a.duplicate>b.duplicate) return -1;
+            if(a.duplicate<b.duplicate) return 1;
+            return 0;
+        });
+
+        this.populate_combobox();
         this.populate_bubble_chart();
         return false;
 
     },
 
+    populate_combobox:function () {
+        $('#search').empty();
+        $('#search').append('<option value="-1">All</option>');
+        for (var j=0; j < this.words.length ; j++){
+            var value = this.words[j].word + '(' + this.words[j].duplicate +')';
+            $('#search').append('<option value="'+j+'">' + value +'</option>');
+        }
+    },
+
+    filter_graphics: function(e){
+        var index = $(e.currentTarget).val();
+        
+        var chart = $('#container').highcharts();
+        var series = chart.series;   
+        var j=0;
+        if (index == -1){
+            for (j=0; j < this.words.length ; j++){
+                this.words[j].visible = true;
+            }
+        } else {
+            for (j=0; j < this.words.length ; j++){
+                if (index == j){
+                    this.words[j].visible = true;
+                } else {
+                    this.words[j].visible = false;
+                }
+            }
+        }
+        this.populate_bubble_chart();
+    },
+
     populate_bubble_chart:function () {
         $('#container').empty();
-
-        this.words.sort(function(a,b){
-            if(a.duplicate>b.duplicate) return -1;
-            if(a.duplicate<b.duplicate) return 1;
-            return 0;
-        });        
 
         var datas = [];
         for (var j=0; j < this.words.length ; j++){
             if (this.words[j].duplicate > 1){
-                datas.push({name:this.words[j].word + '('+this.words[j].duplicate+')', data:[[this.words[j].word.length,this.words[j].duplicate, this.words[j].repeat]]});
+                datas.push({visible: this.words[j].visible , name:this.words[j].word + '('+this.words[j].duplicate+')', data:[[this.words[j].word.length,this.words[j].duplicate, this.words[j].repeat]]});
             }
         }
 
@@ -198,6 +231,7 @@ window.IndexView = Backbone.View.extend({
             series: datas
         
         });
+        
     },
 
     render:function (eventName) {
