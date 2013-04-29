@@ -30,7 +30,7 @@ window.IndexView = Backbone.View.extend({
     },
 
     update_ignoreword: function(result){
-        this.$('.ignore_words').val(this.ignoreWord.get('value'));
+        this.$('.ignore_words').val(this.ignoreWord.get('value'))
     },
 
     events:{
@@ -148,13 +148,12 @@ window.IndexView = Backbone.View.extend({
         
         var chart = $('#container').highcharts();
         var series = chart.series;   
-        var j=0;
         if (index == -1){
-            for (j=0; j < this.words.length ; j++){
+            for (var j=0; j < this.words.length ; j++){
                 this.words[j].visible = true;
             }
         } else {
-            for (j=0; j < this.words.length ; j++){
+            for (var j=0; j < this.words.length ; j++){
                 if (index == j){
                     this.words[j].visible = true;
                 } else {
@@ -171,13 +170,13 @@ window.IndexView = Backbone.View.extend({
         var datas = [];
         for (var j=0; j < this.words.length ; j++){
             if (this.words[j].duplicate > 1){
-                datas.push({visible: this.words[j].visible , name:this.words[j].word + '('+this.words[j].duplicate+')', data:[[this.words[j].word.length,this.words[j].duplicate, this.words[j].repeat]]});
+                datas.push({visible: this.words[j].visible , name:this.words[j].word + '('+this.words[j].duplicate+')', data:[[this.words[j].word.length,this.words[j].duplicate, this.words[j].repeat]]})
             }
         }
 
         var height = 400;
         if ((datas.length * 2) > height){
-            height = (datas.length * 2);
+            height = (datas.length * 2)
         }
 
         $('#container').highcharts({
@@ -255,7 +254,7 @@ var AppRouter = Backbone.Router.extend({
     index:function () {
         this.indexView = new IndexView();
         $('#content').html(this.indexView.render().el);
-    }
+    },
 
 });
 
